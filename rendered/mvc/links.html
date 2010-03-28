@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>GitHub Pages - Home</title>
+    <link href="http://github.com/stylesheets/bundle_common.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="http://github.com/stylesheets/bundle_github.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="main">
+      <div id="header" class="basic">
+ 
+        <div class="site">
+          <div class="logo">
+            <a href="/"><img src="http://github.com/images/modules/header/logo_pages.png" alt="github pages" /></a>
+          </div>
+          <div class="actions">
+            <a href="http://github.com">home</a>
+            <a href="http://github.com/login">login</a>
+            <a href="http://github.com/signup">signup!</a>
+          </div>
+        </div>
+      </div>
+ 
+      <div id="content" class="site">
+      <div class="wikistyle">
+        <h1>Mvc_Links</h1>
+
+<p>Класс Mvc_Links позволяет получать ссылки на страницы проекта на основе 
+настроенных маршрутов. Все ссылки генерируются в соответствии с параметром 
+конфигурации <code>base_url</code>. То есть, если в нём прописан адрес сайта 
+<code>http://remote-edu/deeply/nested/path</code>, то все ссылки, выдаваемые 
+менеджером будут иметь префикс <code>/deeply/nested/path/</code>.</p>
+
+<h2>Получение объекта менеджера ссылок</h2>
+
+<p>Получение объекта менеджера ссылок происходит через обращение к ресурсу:</p>
+
+<pre><code>$links = Resources::getInstance()-&gt;links;
+</code></pre>
+
+<p>Внутри всех шаблонов менеджер автоматически доступен через:</p>
+
+<pre><code>$this-&gt;_links;
+</code></pre>
+
+<h2>Ссылки на файлы</h2>
+
+<p>Если в шаблоне необходимо получить адрес какого-либа файла на сайте, например 
+CSS-файла, то для этого надо использовать метод <code>getPath()</code>:</p>
+
+<pre><code>$this-&gt;_links-&gt;getPath('/files/css/index.css');
+</code></pre>
+
+<h2>Простые ссылки</h2>
+
+<p>Если в конфигурации прописан следующий маршрут:</p>
+
+<pre><code>/* Авторизация */
+array('/login', 'users', 'login', 'users.login', Mvc_Router::ROUTE_STATIC)
+</code></pre>
+
+<p>то для получения ссылки на страницу авторизации надо вызвать метод <code>get()</code> и 
+передать ему алиас маршрута:</p>
+
+<pre><code>$links-&gt;get('users.login');
+</code></pre>
+
+<h2>Ссылки с параметрами</h2>
+
+<p>Пусть задан маршрут с регулярным выражением:</p>
+
+<pre><code>/* Чтение сообщения */
+array('/messages/read/([0-9]+)', array('message_id'), 'messages', 'message', 'messages.read', Mvc_Router::ROUTE_REGEX)       
+</code></pre>
+
+<p>Для получения ссылки в этом случае надо использовать вызов с передачей 
+параметров маршрута в массиве:</p>
+
+<pre><code>$links-&gt;get('messages.read', array('message_id' =&gt; $id));
+</code></pre>
+
+<p>Также возможно опускать параметры маршрута, но только с конца. Например, задан 
+маршрут:</p>
+
+<pre><code>/* Активация слушателя */
+array('/student/activate/([0-9]+)/([0-9a-z]{32})', array('user_id', 'code'), 'users', 'activate_student', 'student.activate', Mvc_Router::ROUTE_REGEX)
+</code></pre>
+
+<p>В этом случае ссылку с полным списком параметров можно получить так:</p>
+
+<pre><code>$links-&gt;get('student.activate', array('user_id' =&gt; $id,
+                                      'code'    =&gt; $code));
+</code></pre>
+
+<p>Но можно и опустить последний параметр — код активации:</p>
+
+<pre><code>$links-&gt;get('student.activate', array('user_id' =&gt; $id));
+</code></pre>
+
+<p>Ссылка будет успешно сгенерирована, но в ней не будет последнего параметра. 
+Здесь следует быть внимательным: несмотря на то, что ссылка будет сгенерирована, 
+при переходе по ней этот маршрут не сработает, так как в нём оба параметры 
+являются обязательными. Чтобы объявить необязательный параметр, для подмаски 
+параметра надо использовать квантификатор <code>?</code>:</p>
+
+<pre><code>/* Оправка сообщения */
+array('/messages/send/([0-9]+)?', array('to_id'), 'messages', 'send', 'messages.send', Mvc_Router::ROUTE_REGEX)
+</code></pre>
+
+<p>В этом случае, ссылка, полученная через вызов без параметров маршрута будет 
+корректна и совпадать с шаблоном этого маршрута.</p>
+
+      </div>
+      </div>
+ 
+      <div class="push"></div>
+    </div>
+ 
+    <div id="footer">
+      <div class="site">
+ 
+        <div class="info">
+          <div class="links">
+            <a href="http://github.com/blog/148-github-shirts-now-available">T-Shirts</a> |
+            <a href="http://github.com/blog">Blog</a> |
+            <a href="http://support.github.com/">Support</a> |
+            <a href="http://github.com/training">Git Training</a> |
+            <a href="http://github.com/contact">Contact</a> |
+            <a href="http://groups.google.com/group/github/">Google Group</a> |
+            <a href="http://github.wordpress.com">Status</a>
+          </div>
+          <div class="company">
+            GitHub is <a href="http://logicalawesome.com/">Logical Awesome</a> &copy;2009 | <a href="http://github.com/site/terms">Terms of Service</a> | <a href="http://github.com/site/privacy">Privacy Policy</a>
+          </div>
+        </div>
+        <div class="sponsor">
+          <div>
+            Powered by the <a href="http://www.rackspace.com ">Dedicated
+            Servers</a> and<br/> <a href="http://www.rackspacecloud.com">Cloud
+            Computing</a> of Rackspace Hosting<span>&reg;</span>
+          </div>
+          <a href="http://www.rackspace.com">
+            <img src="http://github.com/images/modules/footer/rackspace_logo.png" alt="Dedicated Server" />
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+  </body>
+</html>
