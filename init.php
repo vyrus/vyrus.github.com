@@ -29,4 +29,6 @@
         ->setFallbackAutoloader(true)
         ->suppressNotFoundWarnings(true);
         
+    Init::setupErrorHandler();
+        
 ?>
