@@ -1,25 +1,25 @@
 <?php
     
-    require_once 'markdown.php';
+    require_once 'third_party/markdown.php';
     
     define('DS',       DIRECTORY_SEPARATOR);
     define('ROOT',     dirname(__FILE__));
     
-    /*
-    $config = array(
-        'pages'  => 'D:\\uni\\диплом\\практика\\отчёт\\markdown',
-        'layout' => 'D:\\projects\\vyrus.github.com\\layout',
-        'output' => 'Y:\\home\\diploma\\www'
-    );
-    */
-    
     ///*
+    $config = array(
+        'pages'  => 'D:\\uni\\диплом\\записка',
+        'layout' => 'D:\\projects\\vyrus.github.com\\layout',
+        'output' => 'D:\\projects\\vyrus.github.com\\output'
+    );
+    //*/
+    
+    /*
     $config = array(
         'pages'  => ROOT . DS . 'pages',
         'layout' => ROOT . DS . 'layout',
         'output' => ROOT . DS . 'rendered'
     );
-    //*/
+    */
     
     define('LAYOUT',   $config['layout']);
     define('PAGES',    $config['pages']);
